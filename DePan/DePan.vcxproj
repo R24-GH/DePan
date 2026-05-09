@@ -44,11 +44,11 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <IncludePath>C:\Program Files %28x86%29\VapourSynth\sdk\include;C:\fftw-3.3.4-dll32;$(IncludePath)</IncludePath>
+    <IncludePath>S:\Vapourkit\data\vapoursynth-portable\sdk\include\vapoursynth;C:\fftw-3.3.4-dll32;$(IncludePath)</IncludePath>
     <LibraryPath>C:\fftw-3.3.4-dll32;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <IncludePath>C:\Program Files %28x86%29\VapourSynth\sdk\include;C:\fftw-3.3.4-dll64;$(IncludePath)</IncludePath>
+    <IncludePath>S:\Vapourkit\data\vapoursynth-portable\sdk\include\vapoursynth;C:\fftw-3.3.4-dll64;$(IncludePath)</IncludePath>
     <LibraryPath>C:\fftw-3.3.4-dll64;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">

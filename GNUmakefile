@@ -1,5 +1,5 @@
 #----------------------------------------------------------------------------
-#  Makefile for VapourSynth-DePan
+#  Makefile for VapourSynth-DePan - Clean Static Build
 #----------------------------------------------------------------------------
 
 include config.mak
@@ -8,39 +8,24 @@ vpath %.cpp $(SRCDIR)
 vpath %.h $(SRCDIR)
 
 SRCS = DePan/DePan.cpp
-
 OBJS = $(SRCS:%.cpp=%.o)
 
-.PHONY: all install clean distclean dep
+# Ultra-aggressive static linking
+STATIC_FLAGS = -static -static-libgcc -static-libstdc++ -Wl,--whole-archive -lpthread -Wl,--no-whole-archive -Wl,--exclude-libs,ALL
+
+.PHONY: all clean
 
 all: $(LIBNAME)
 
 $(LIBNAME): $(OBJS)
-	$(LD) -o $@ $(LDFLAGS) $^ $(LIBS)
-	-@ $(if $(STRIP), $(STRIP) -x $@)
+	$(LD) -o $@ $(LDFLAGS) $(STATIC_FLAGS) $^ $(LIBS)
+	-@strip -x $@ 2>/dev/null || true
 
-%.o: %.cpp .depend
+%.o: %.cpp
 	$(CXX) $(CXXFLAGS) -c $< -o $@
 
-install: all
-	install -d $(libdir)
-	install -m 755 $(LIBNAME) $(libdir)
-
 clean:
-	$(RM) *.dll *.so *.dylib $(OBJS) .depend
-
-distclean: clean
-	$(RM) config.*
-
-dep: .depend
-
-ifneq ($(wildcard .depend),)
-include .depend
-endif
-
-.depend: config.mak
-	@$(RM) .depend
-	@$(foreach SRC, $(SRCS:%=$(SRCDIR)/%), $(CXX) $(SRC) $(CXXFLAGS) -MT $(SRC:$(SRCDIR)/%.cpp=%.o) -MM >> .depend;)
+	$(RM) *.dll *.o .depend
 
 config.mak:
 	./configure
