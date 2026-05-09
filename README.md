@@ -1,13 +1,17 @@
 Note
 ===========
-Should be the last version of Depan when the repo was deleted. But I'm not 100% sure if the binary version matches the current source code.
+Should be the last version of Depan when the repo was deleted. But I'm not 100% sure if the binary version matches the current source code. Forked from theChaosCoder's Jan 26, 2022 version to rebuild with the latest Vapourkit headers. You'll still need to change the paths in DePan.vcxproj to yours, since I used a portable install from Vapourkit to build it (I don't have a full install of Vapoursynth). The new build files for make were vibe coded to make it so you don't need to include a bunch of dll dependencies (no libgcc, libstdc++, or libwinpthread), it used to require to build with visual studio otherwise and I didn't want to update my visual studio installs at the moment.
+
+Also note, I'm not a coder, so I won't be maintaining this in the future. I made this branch to have a public repo for a dll that works in the latest VS because the 2022 version from theChaosCoder was no longer working, and I needed the range parameter but I didn't want to continue using the Avisynth plugin in VS since it kept throwing prefetch errors and causing performance issues.
+
+Feel free to fork for further development.
 
 Description
 ===========
 
 Tools for estimation and compensation of global motion (pan).
 
-Requires libfftw3f-3.dll to be in the search path. http://www.fftw.org/install/windows.html
+Apparently no longer requires libfftw3f-3.dll to be in the search path, purely by accident, but if it throws an error then it does (I have it in the path but ldd DePan.dll doesn't show it as dependency). http://www.fftw.org/install/windows.html
 
 Ported from AviSynth plugin http://avisynth.org.ru/
 
